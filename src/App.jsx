@@ -1,11 +1,21 @@
 import { Header } from "./components/Header";
-import "./global.css"
+import styles from "./App.module.css";
+import "./global.css";
+import { SideBar } from "./components/SideBar";
 
 export function App() {
   return (
     <>
       <Header />
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum sunt, consequatur at quis, totam eius doloremque voluptatem tenetur expedita odio, nulla magnam animi distinctio hic quos dolores? Dolor, voluptates blanditiis.</p>
+
+      <div className={styles.wrapper}>
+        <SideBar />
+
+        <main>
+          <h3>Main</h3>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam consequatur laboriosam pariatur ipsam vel. Voluptatibus, modi deleniti? Minima doloremque suscipit omnis similique dolorum veniam vel, temporibus, consectetur reiciendis, distinctio commodi!
+        </main>
+      </div>
     </>
   )
 }
