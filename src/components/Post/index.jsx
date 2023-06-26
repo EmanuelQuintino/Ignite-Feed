@@ -2,8 +2,38 @@ import styles from "./style.module.css";
 
 export function Post() {
   return (
-    <>
-      <h1>Ignite Feed</h1>
-    </>
+    <article className={styles.post}>
+      <header>
+        <div className={styles.author}>
+          <img
+            src="https://github.com/EmanuelQuintino.png"
+            alt="img-profile"
+            className={styles.avatar}
+          />
+          <div className={styles.authorInfo}>
+            <strong>Emanuel Quintino</strong>
+            <span>Web Developer</span>
+          </div>
+        </div>
+
+        <time title="26/06/2023 às 21:30h" datatype="26-06-2023 21:30:23">Publicado há 1h</time>
+      </header>
+
+      <main className={styles.content}>
+        <p>Fala galeraa 👋</p>
+
+        <p>
+          Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀
+        </p>
+
+        <p>👉 <a href="#">jane.design/doctorcare</a></p>
+
+        <p className={styles.hastags}>
+          <a href="#">#novoprojeto</a>
+          <a href="#">#nlw</a>
+          <a href="#">#rocketseat</a>
+        </p>
+      </main>
+    </article>
   )
 }
