@@ -11,12 +11,14 @@
   --green-300: #00b47e;
   --green-500: #00875f;
 
+  --red-500: #f75a68;
+
   font-size: 62.5%;
 }
 
 :focus {
   outline: transparent;
-  box-shadow: 0 0 0 2px var(--green-300);
+  box-shadow: 0 0 0 1px var(--green-300);
 }
 
 * {
