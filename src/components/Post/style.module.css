@@ -119,3 +119,9 @@
 .commentList {
   margin-top: 3.2rem;
 }
+
+@media (max-width: 760px) {
+  .post {
+    padding: 2.4rem;
+  }
+}
