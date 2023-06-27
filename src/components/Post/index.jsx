@@ -28,7 +28,7 @@ export function Post() {
 
         <p>👉 <a href="#">jane.design/doctorcare</a></p>
 
-        <p className={styles.hastags}>
+        <p className={styles.hashtags}>
           <a href="#">#novoprojeto</a>
           <a href="#">#nlw</a>
           <a href="#">#rocketseat</a>
@@ -38,7 +38,10 @@ export function Post() {
       <form className={styles.commentForm}>
         <label htmlFor="comment">Deixe seu comentário</label>
         <textarea id="comment" placeholder="Deixe seu comentário"></textarea>
-        <button type="submit">Comentar</button>
+
+        <footer>
+          <button type="submit">Publicar</button>
+        </footer>
       </form>
     </article>
   )

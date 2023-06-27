@@ -70,7 +70,7 @@
   color: var(--green-300);
 }
 
-.hastags {
+.hashtags {
   display: flex;
   gap: .6rem;
 }
@@ -98,6 +98,16 @@
   color: var(--gray-100);
   line-height: 1.4;
   margin-top: 1.6rem;
+}
+
+.commentForm footer {
+  visibility: hidden;
+  max-height: 0;
+}
+
+.commentForm:focus-within footer {
+  visibility: visible;
+  max-height: none;
 }
 
 .commentForm button[type="submit"] {
