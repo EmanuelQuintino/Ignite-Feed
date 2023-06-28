@@ -1,13 +1,18 @@
 import { Avatar } from "../Avatar";
 import { Comment } from "../Comment";
+import { format, formatDistanceToNow } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
 import styles from "./style.module.css";
+import { Tree } from "phosphor-react";
 
 export function Post({ author, content, publishedAt }) {
-  const formatDate = publishedAt.toLocaleString("pr-BR", {
-    day: "2-digit",
-    month: "long",
-    hour: "2-digit",
-    minute: "2-digit",
+  const formatDate = format(publishedAt, "d 'de' MMMM 'às' HH:mm'h", {
+    locale: ptBR,
+  });
+
+  const formatDateRelativeToNow = formatDistanceToNow(publishedAt, {
+    locale: ptBR,
+    addSuffix: Tree,
   });
 
   return (
@@ -21,17 +26,18 @@ export function Post({ author, content, publishedAt }) {
           </div>
         </div>
 
-        <time title={`${formatDate}h`} datatype="26-06-2023 21:30:23">dafadf</time>
+        <time title={formatDate} datatype={publishedAt.toISOString()}>{formatDateRelativeToNow}</time>
       </header>
 
       <main className={styles.content}>
-        <p>Fala galeraa 👋</p>
-
-        <p>
-          Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀
-        </p>
-
-        <p>👉 <a href="#">jane.design/doctorcare</a></p>
+        {content.map(line => {
+          console.log(line);
+          if (line.type === "paragraph") {
+            return <p>{line.content}</p>
+          } else if (line.type === "link") {
+            return <p><a href="#">{line.content}</a></p>
+          }
+        })}
 
         <p className={styles.hashtags}>
           <a href="#">#novoprojeto</a>
