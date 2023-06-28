@@ -3,6 +3,7 @@ import "./global.css";
 import { SideBar } from "./components/SideBar";
 import { Post } from "./components/Post";
 import styles from "./App.module.css";
+import { posts } from "./utils/posts";
 
 export function App() {
   return (
@@ -13,9 +14,14 @@ export function App() {
         <SideBar />
 
         <main>
-          <Post />
-          <Post />
-          <Post />
+          {posts.map(post => (
+            <Post
+              key={post.id}
+              author={post.author}
+              content={post.content}
+              publishedAt={post.publishedAt}
+            />
+          ))}
         </main>
       </div>
     </>
