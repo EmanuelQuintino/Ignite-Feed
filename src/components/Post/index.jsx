@@ -24,6 +24,10 @@ export function Post({ author, content, publishedAt }) {
     event.target.commentArea.value = "";
   };
 
+  function deleteComment(deteteComment) {
+    setComments(prevState => prevState.filter(comment => comment !== deteteComment));
+  };
+
   return (
     <article className={styles.post}>
       <header>
@@ -73,6 +77,7 @@ export function Post({ author, content, publishedAt }) {
             key={comment}
             avatarURL={"https://github.com/diego3g.png"}
             comment={comment}
+            onDeleteComment={deleteComment}
           />
         ))}
       </div>
