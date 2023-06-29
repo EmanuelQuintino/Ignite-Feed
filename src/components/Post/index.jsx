@@ -4,8 +4,11 @@ import { format, formatDistanceToNow } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
 import styles from "./style.module.css";
 import { Tree } from "phosphor-react";
+import { useState } from "react";
 
 export function Post({ author, content, publishedAt }) {
+  const [comments, setComments] = useState([]);
+
   const formatDate = format(publishedAt, "d 'de' MMMM 'às' HH:mm'h", {
     locale: ptBR,
   });
@@ -14,6 +17,12 @@ export function Post({ author, content, publishedAt }) {
     locale: ptBR,
     addSuffix: Tree,
   });
+
+  function handleAddComment(event) {
+    event.preventDefault();
+    setComments([event.target.commentArea.value, ...comments]);
+    event.target.commentArea.value = "";
+  };
 
   return (
     <article className={styles.post}>
@@ -31,11 +40,10 @@ export function Post({ author, content, publishedAt }) {
 
       <main className={styles.content}>
         {content.map(line => {
-          console.log(line);
           if (line.type === "paragraph") {
-            return <p>{line.content}</p>
+            return <p key={line.content}>{line.content}</p>
           } else if (line.type === "link") {
-            return <p><a href="#">{line.content}</a></p>
+            return <p key={line.content}><a href="#">{line.content}</a></p>
           }
         })}
 
@@ -46,9 +54,13 @@ export function Post({ author, content, publishedAt }) {
         </p>
       </main>
 
-      <form className={styles.commentForm}>
+      <form className={styles.commentForm} onSubmit={handleAddComment}>
         <label htmlFor="comment">Deixe seu comentário</label>
-        <textarea id="comment" placeholder="Deixe seu comentário"></textarea>
+        <textarea
+          id="comment"
+          placeholder="Deixe seu comentário"
+          name="commentArea"
+        />
 
         <footer>
           <button type="submit">Publicar</button>
@@ -56,10 +68,13 @@ export function Post({ author, content, publishedAt }) {
       </form>
 
       <div className={styles.commentList}>
-        <Comment avatarURL={"https://github.com/maykbrito.png"} />
-        <Comment avatarURL={"https://github.com/rodrigorgtic.png"} />
-        <Comment avatarURL={"https://github.com/jakeliny.png"} />
-        <Comment avatarURL={"https://github.com/diego3g.png"} />
+        {comments.map(comment => (
+          <Comment
+            key={comment}
+            avatarURL={"https://github.com/diego3g.png"}
+            comment={comment}
+          />
+        ))}
       </div>
     </article>
   )
