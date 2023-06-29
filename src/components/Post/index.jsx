@@ -8,6 +8,7 @@ import { useState } from "react";
 
 export function Post({ author, content, publishedAt }) {
   const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
 
   const formatDate = format(publishedAt, "d 'de' MMMM 'às' HH:mm'h", {
     locale: ptBR,
@@ -21,11 +22,20 @@ export function Post({ author, content, publishedAt }) {
   function handleAddComment(event) {
     event.preventDefault();
     setComments([event.target.commentArea.value, ...comments]);
-    event.target.commentArea.value = "";
+    setNewComment("");
   };
 
   function deleteComment(deteteComment) {
     setComments(prevState => prevState.filter(comment => comment !== deteteComment));
+  };
+
+  function handleChangeNewComment(event) {
+    event.target.setCustomValidity("");
+    setNewComment(event.target.value);
+  };
+
+  function handleNewCommentInvalid(event) {
+    event.target.setCustomValidity("Campo obrigatório");
   };
 
   return (
@@ -64,6 +74,10 @@ export function Post({ author, content, publishedAt }) {
           id="comment"
           placeholder="Deixe seu comentário"
           name="commentArea"
+          value={newComment}
+          onChange={handleChangeNewComment}
+          required
+          onInvalid={handleNewCommentInvalid}
         />
 
         <footer>
