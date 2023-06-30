@@ -1,4 +1,22 @@
-export const posts = [
+type Author = {
+  name: string;
+  role: string;
+  avatarUrl: string;
+};
+
+type Content = {
+  type: "paragraph" | "link";
+  content: string;
+};
+
+type Posts = {
+  id: number;
+  author: Author;
+  content: Content[];
+  publishedAt: Date;
+};
+
+export const posts: Posts[] = [
   {
     id: 1,
     author: {
