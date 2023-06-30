@@ -9,18 +9,18 @@ type Author = {
   name: string;
   role: string;
   avatarUrl: string;
-}
+};
 
 type Content = {
   type: "paragraph" | "link";
   content: string;
-}
+};
 
 type PostProps = {
   author: Author;
   content: Content[];
   publishedAt: Date;
-}
+};
 
 export function Post({ author, content, publishedAt }: PostProps) {
   const [comments, setComments] = useState<string[]>([]);
