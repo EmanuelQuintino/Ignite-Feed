@@ -3,11 +3,27 @@ import { Comment } from "../Comment";
 import { format, formatDistanceToNow } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
 import styles from "./style.module.css";
-import { Tree } from "phosphor-react";
-import { useState } from "react";
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from "react";
 
-export function Post({ author, content, publishedAt }) {
-  const [comments, setComments] = useState([]);
+type Author = {
+  name: string;
+  role: string;
+  avatarUrl: string;
+}
+
+type Content = {
+  type: "paragraph" | "link";
+  content: string;
+}
+
+type PostProps = {
+  author: Author;
+  content: Content[];
+  publishedAt: Date;
+}
+
+export function Post({ author, content, publishedAt }: PostProps) {
+  const [comments, setComments] = useState<string[]>([]);
   const [newComment, setNewComment] = useState("");
 
   const formatDate = format(publishedAt, "d 'de' MMMM 'às' HH:mm'h", {
@@ -16,25 +32,25 @@ export function Post({ author, content, publishedAt }) {
 
   const formatDateRelativeToNow = formatDistanceToNow(publishedAt, {
     locale: ptBR,
-    addSuffix: Tree,
+    addSuffix: true,
   });
 
-  function handleAddComment(event) {
+  function handleAddComment(event: FormEvent) {
     event.preventDefault();
-    setComments([event.target.commentArea.value, ...comments]);
+    setComments([newComment, ...comments]);
     setNewComment("");
   };
 
-  function deleteComment(deteteComment) {
+  function deleteComment(deteteComment: string) {
     setComments(prevState => prevState.filter(comment => comment !== deteteComment));
   };
 
-  function handleChangeNewComment(event) {
+  function handleChangeNewComment(event: ChangeEvent<HTMLTextAreaElement>) {
     event.target.setCustomValidity("");
     setNewComment(event.target.value);
   };
 
-  function handleNewCommentInvalid(event) {
+  function handleNewCommentInvalid(event: InvalidEvent<HTMLTextAreaElement>) {
     event.target.setCustomValidity("Campo obrigatório");
   };
 
